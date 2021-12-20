@@ -6,8 +6,8 @@ const styles = {}
 const components = {}
 
 const fonts = {
-  heading: "sans-serif",
-  body: "sans-serif"
+  heading: "'IBM Plex Sans', sans-serif",
+  body: "'IBM Plex Sans', sans-serif"
 }
 
 const colors = {}

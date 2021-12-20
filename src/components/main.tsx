@@ -10,13 +10,13 @@ function Main({ children }: MainProps){
   return (
     <Box as="main">
       <Head>
-        <meta name="description" content="Coloque uma descrição" />
-        <meta name="author" content="Coloque seu nome" />
-        <meta property="og:site_name" content="Coloque o nome do site" />
-        <meta property="og:type" content="Coloque o tipo do site" />
-        <title>Example</title>
+        <meta name="description" content="Pokedex feita em next.js" />
+        <meta name="author" content="Diego alessandro da cruz martins" />
+        <meta property="og:site_name" content="pokedex" />
+        <meta property="og:type" content="website" />
+        <title>Pokedex</title>
       </Head>
-      <Container maxW="container.md">
+      <Container maxW="container.lg">
         {children}
       </Container>
     </Box>

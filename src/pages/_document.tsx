@@ -14,7 +14,7 @@ class MyDocument extends Document {
       <>
         <Html lang="pt-BR">
           <Head>
-            <link rel="icon" type="image/png" href="image_url" />
+            <link rel="icon" type="image/ico" href="https://assets.pokemon.com/static2/_ui/img/favicon.ico" />
           </Head>
           <body>
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
