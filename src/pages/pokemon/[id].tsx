@@ -2,7 +2,6 @@ import { GetStaticPaths, GetStaticProps } from "next"
 import pokeapi from "../../services/pokeapi"
 
 export default function Id({ data }){
-  console.log(data)
 
   return (
     <></>
@@ -11,7 +10,6 @@ export default function Id({ data }){
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { data } = await pokeapi.get(`pokemon/${params.id}`)
-  
   return {
     props: {
       data
@@ -19,9 +17,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await pokeapi.get(`pokemon`)
+  const paths = []
+  for(let i = 1; data.count > i; i++){
+    paths.push(`/pokemon/${i}`)
+  }
+
   return {
-    paths: [],
-    fallback: "blocking"
+    paths,
+    fallback: false
   }
 }

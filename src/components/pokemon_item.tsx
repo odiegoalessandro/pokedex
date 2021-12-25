@@ -7,7 +7,7 @@ function titleTransform(title: string){
 
 export default function PokemonItem({ pokemon }){
   return (
-    <LinkBox textAlign="left">
+    <LinkBox textAlign="left" maxH="15rem">
       <Flex align="left" flexDir="column">
         <Image src={pokemon.image} width={180} height={180} />
         <Text as="span" opacity="0.5">
