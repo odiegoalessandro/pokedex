@@ -10,8 +10,6 @@ import {
   Box,
   Input,
   FormControl,
-  CloseButton,
-  Spinner
 }  from "@chakra-ui/react"
 import toast, { Toaster } from "react-hot-toast"
 
@@ -40,7 +38,7 @@ export default function Home({ pokemons, next }) {
 
   async function handleSubmit(event: FormEvent){
     event.preventDefault()
-    
+
     if(!searchBar){
       toast.error("Please send all required values")
 
@@ -64,6 +62,8 @@ export default function Home({ pokemons, next }) {
         console.error(error)
       }
     }, 1000)
+
+    setSearchBar("")
   }
 
   return (
@@ -136,7 +136,7 @@ export default function Home({ pokemons, next }) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const { data } = await pokeapi.get("/pokemon", {params: {limit: 12}})
   const pokemons = data.results.map((pokemon, index) => {
     const image = `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(index + 1).padStart(3, "00")}.png`
