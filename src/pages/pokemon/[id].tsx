@@ -1,7 +1,12 @@
-import { Box, Flex, Heading } from "@chakra-ui/react"
+import { Box, Flex, Heading, Grid, GridItem, Progress, Center, VStack, HStack, Text } from "@chakra-ui/react"
 import { GetStaticPaths, GetStaticProps } from "next"
 import NextLink from "next/link"
 import pokeapi from "../../services/pokeapi"
+import Image from "next/image"
+
+function textTransform(text: string){
+  return text.replace("-", " ")
+}
 
 export default function Id({ pokemon }){
   console.log(pokemon)
@@ -25,7 +30,74 @@ export default function Id({ pokemon }){
           </Heading>
         </NextLink>
       </Box>
-      
+       <Grid 
+        mt={100}
+        w="full"
+        h="full"
+        templateColumns="repeat(4, 1fr)"
+        templateRows="repeat(3, 1fr)"
+        gap={5}
+      >
+          <GridItem 
+            colSpan={1}
+            rowSpan={2}
+            bgColor="gray.700"
+            px={7}
+          >
+            <VStack spacing={5} align="left">
+
+              <Image src={pokemon.image} width={250} height={250} />
+              <Heading fontSize="lg">name: {pokemon.name}</Heading>
+              <Heading fontSize="lg">weight: {pokemon.weight}</Heading>
+              <Heading fontSize="lg">height: {pokemon.height}</Heading>
+              <Heading fontSize="md">types:</Heading>
+              <HStack mt={2}>
+                {
+                  pokemon.types.map(type => (
+                    <Box className={`container ${type.type.name}`}>
+                      <Text as="span">
+                        {type.type.name}
+                      </Text>
+                    </Box>
+                  ))
+                }
+              </HStack>
+            </VStack>
+          
+          </GridItem>
+          <GridItem
+            colSpan={3}
+            rowSpan={2}
+            py={5}
+            bgColor="gray.700"
+            display="flex"
+            flexDir="column"
+            justifyContent="space-between"
+          >
+            <Heading fontSize="xl" p={8}>
+              Status
+            </Heading>
+            <VStack mb={10}>
+              {
+                pokemon.stats.map(status => {
+                  const calc = status.base_stat * 100 / 255
+                  return (
+                    <>
+                      <Text 
+                        px={8}
+                        alignSelf="flex-start"
+                        textTransform="capitalize"
+                      >
+                        {textTransform(status.stat.name)}
+                      </Text>
+                      <Progress value={calc} w="91%" title={`${status.base_stat}/255`} />
+                    </>
+                  )
+                })
+              }
+            </VStack>
+          </GridItem>
+       </Grid>
     </Flex>
   )
 }
@@ -53,7 +125,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 
   return {
-    paths,
+    paths,  
     fallback: false
   }
 }
